@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPE Applied Mathematics Unit 2 - Kinematics & Dynamics</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-calculator"></i>
+            <span>CAPE Applied Math Unit 2</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#topics">Topics</a></li>
+            <li><a href="#practice">Practice</a></li>
+            <li><a href="#ai-tutor">AI Tutor</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Kinematics & Dynamics</h1>
+            <p>Master Module 3 of CAPE Applied Mathematics Unit 2 with interactive animations, guided problems, and AI-powered tutoring.</p>
+            <div class="hero-buttons">
+                <a href="#topics" class="btn btn-primary">Start Learning</a>
+                <a href="#ai-tutor" class="btn btn-secondary">Ask AI Tutor</a>
+            </div>
+        </div>
+        <div class="hero-animation">
+            <canvas id="heroCanvas"></canvas>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section id="topics" class="topics-section">
+        <h2>Syllabus Topics</h2>
+        <div class="topics-grid">
+            <div class="topic-card" data-topic="kinematics">
+                <div class="topic-icon"><i class="fas fa-route"></i></div>
+                <h3>2.1 Kinematics Basics</h3>
+                <p>Distance vs Displacement, Speed vs Velocity</p>
+                <button class="btn btn-small" onclick="openTopic('kinematics')">Learn More</button>
+            </div>
+            <div class="topic-card" data-topic="graphs">
+                <div class="topic-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>2.2 Motion Graphs</h3>
+                <p>Displacement-time & Velocity-time graphs</p>
+                <button class="btn btn-small" onclick="openTopic('graphs')">Learn More</button>
+            </div>
+            <div class="topic-card" data-topic="equations">
+                <div class="topic-icon"><i class="fas fa-square-root-alt"></i></div>
+                <h3>2.3 Kinematic Quantities</h3>
+                <p>SUVAT equations and applications</p>
+                <button class="btn btn-small" onclick="openTopic('equations')">Learn More</button>
+            </div>
+            <div class="topic-card" data-topic="newton">
+                <div class="topic-icon"><i class="fas fa-apple-alt"></i></div>
+                <h3>2.4 Newton's Laws</h3>
+                <p>Forces, inclined planes, connected particles</p>
+                <button class="btn btn-small" onclick="openTopic('newton')">Learn More</button>
+            </div>
+            <div class="topic-card" data-topic="calculus">
+                <div class="topic-icon"><i class="fas fa-infinity"></i></div>
+                <h3>2.5-2.6 Calculus of Motion</h3>
+                <p>Differential equations and rates of change</p>
+                <button class="btn btn-small" onclick="openTopic('calculus')">Learn More</button>
+            </div>
+            <div class="topic-card" data-topic="momentum">
+                <div class="topic-icon"><i class="fas fa-car-crash"></i></div>
+                <h3>2.7 Momentum & Impulse</h3>
+                <p>Conservation of momentum, collisions</p>
+                <button class="btn btn-small" onclick="openTopic('momentum')">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topic Content Modal -->
+    <div id="topicModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="topicContent"></div>
+        </div>
+    </div>
+
+    
+    <!-- Practice Problems Section -->
+    <section id="practice" class="practice-section">
+        <h2>Problem Solving Practice</h2>
+        <p class="section-intro">
+            Focus on problem solving (no animations). Choose a topic and try questions. Use <strong>Show Answer</strong> only after you attempt.
+        </p>
+
+        <div class="practice-controls">
+            <div class="control-group">
+                <label for="practice-category">Topic</label>
+                <select id="practice-category">
+                    <option value="all">All topics</option>
+                    <option value="graphs-distance-time">Distance–Time Graphs</option>
+                    <option value="graphs-velocity-time">Velocity–Time Graphs</option>
+                    <option value="graphs-acceleration-time">Acceleration–Time Graphs</option>
+                    <option value="suvat">SUVAT / Constant Acceleration</option>
+                    <option value="calculus">Differentiation & Integration in Motion</option>
+                    <option value="mixed">Mixed Exam-Style</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="practice-difficulty">Difficulty</label>
+                <select id="practice-difficulty">
+                    <option value="all">All</option>
+                    <option value="foundation">Foundation</option>
+                    <option value="standard" selected>Standard</option>
+                    <option value="challenge">Challenge</option>
+                </select>
+            </div>
+
+            <div class="control-group buttons">
+                <button id="practice-random" class="btn btn-primary"><i class="fas fa-dice"></i> Random Set</button>
+                <button id="practice-reset" class="btn btn-secondary"><i class="fas fa-rotate-left"></i> Reset</button>
+            </div>
+        </div>
+
+        <div id="practice-stats" class="practice-stats" aria-live="polite"></div>
+        <div id="practice-list" class="practice-list"></div>
+
+        <div class="practice-note">
+            <h3>How to approach these</h3>
+            <ul>
+                <li><strong>Distance–Time:</strong> gradient = speed; flat line = at rest; steeper = faster.</li>
+                <li><strong>Velocity–Time:</strong> gradient = acceleration; area under curve = displacement (signed).</li>
+                <li><strong>Acceleration–Time:</strong> area under curve = change in velocity.</li>
+            </ul>
+        </div>
+    </section>
+
+<!-- AI Tutor Section -->
+    <section id="ai-tutor" class="ai-tutor-section">
+        <h2>AI Tutor</h2>
+        <div class="ai-container">
+            <div class="ai-info">
+                <div class="ai-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Your Personal Math Tutor</h3>
+                <p>Ask questions about kinematics, dynamics, or any problem you're stuck on. I'll guide you through the solution step by step!</p>
+            </div>
+            <div class="chat-container">
+                <div id="chat-messages" class="chat-messages">
+                    <div class="message ai-message">
+                        <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                        <div class="message-content">
+                            <p>Hello! I'm your CAPE Applied Mathematics tutor. I can help you with:</p>
+                            <ul>
+                                <li>Understanding kinematics concepts</li>
+                                <li>Solving SUVAT problems</li>
+                                <li>Newton's Laws applications</li>
+                                <li>Momentum and collision problems</li>
+                                <li>Differential equations in motion</li>
+                            </ul>
+                            <p>What would you like to learn about today?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <textarea id="user-input" placeholder="Type your question here..." rows="2"></textarea>
+                    <button id="send-btn" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Send
+                    </button>
+                </div>
+            </div>
+            <div class="quick-questions">
+                <h4>Quick Questions:</h4>
+                <button class="quick-btn" data-question="Explain the difference between distance and displacement">Distance vs Displacement</button>
+                <button class="quick-btn" data-question="What are the SUVAT equations and when do I use each one?">SUVAT Equations</button>
+                <button class="quick-btn" data-question="How do I find displacement from a velocity-time graph?">Area Under v-t Graph</button>
+                <button class="quick-btn" data-question="Explain conservation of momentum with an example">Conservation of Momentum</button>
+                <button class="quick-btn" data-question="How do I solve problems involving inclined planes?">Inclined Plane Problems</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formula Reference -->
+    <section id="formulas" class="formulas-section">
+        <h2>Formula Reference</h2>
+        <div class="formula-cards">
+            <div class="formula-card">
+                <h3>SUVAT Equations</h3>
+                <div class="formula-list">
+                    <p>\(v = u + at\)</p>
+                    <p>\(s = ut + \frac{1}{2}at^2\)</p>
+                    <p>\(s = vt - \frac{1}{2}at^2\)</p>
+                    <p>\(v^2 = u^2 + 2as\)</p>
+                    <p>\(s = \frac{(u + v)t}{2}\)</p>
+                </div>
+            </div>
+            <div class="formula-card">
+                <h3>Newton's Laws</h3>
+                <div class="formula-list">
+                    <p>\(F = ma\)</p>
+                    <p>\(W = mg\)</p>
+                    <p>Friction: \(F_f = \mu R\)</p>
+                    <p>Inclined plane: \(mg\sin\theta\)</p>
+                </div>
+            </div>
+            <div class="formula-card">
+                <h3>Momentum & Impulse</h3>
+                <div class="formula-list">
+                    <p>\(p = mv\)</p>
+                    <p>\(J = \Delta p = mv - mu\)</p>
+                    <p>\(J = Ft\)</p>
+                    <p>Conservation: \(m_1u_1 + m_2u_2 = m_1v_1 + m_2v_2\)</p>
+                </div>
+            </div>
+            <div class="formula-card">
+                <h3>Calculus Relations</h3>
+                <div class="formula-list">
+                    <p>\(v = \frac{dx}{dt}\)</p>
+                    <p>\(a = \frac{dv}{dt} = \frac{d^2x}{dt^2}\)</p>
+                    <p>\(a = v\frac{dv}{dx}\)</p>
+                    <p>\(x = \int v \, dt\)</p>
+                </div>
+            </div>
+            <div class="formula-card">
+                <h3>Projectile Motion</h3>
+                <div class="formula-list">
+                    <p>Horizontal: \(x = v\cos\theta \cdot t\)</p>
+                    <p>Vertical: \(y = v\sin\theta \cdot t - \frac{1}{2}gt^2\)</p>
+                    <p>Max height: \(H = \frac{v^2\sin^2\theta}{2g}\)</p>
+                    <p>Range: \(R = \frac{v^2\sin 2\theta}{g}\)</p>
+                </div>
+            </div>
+            <div class="formula-card">
+                <h3>Energy & Work</h3>
+                <div class="formula-list">
+                    <p>KE: \(\frac{1}{2}mv^2\)</p>
+                    <p>PE: \(mgh\)</p>
+                    <p>Work: \(W = Fs\cos\theta\)</p>
+                    <p>Power: \(P = \frac{W}{t} = Fv\)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 CAPE Applied Mathematics Unit 2 Learning Resource</p>
+            <p>Designed for Caribbean Advanced Proficiency Examination Students</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
