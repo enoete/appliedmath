@@ -99,6 +99,7 @@
         <div class="animation-tabs">
             <button class="tab-btn active" data-tab="displacement">Displacement-Time</button>
             <button class="tab-btn" data-tab="velocity">Velocity-Time</button>
+            <button class="tab-btn" data-tab="graphlab">Graph Relationships</button>
             <button class="tab-btn" data-tab="projectile">Projectile Motion</button>
             <button class="tab-btn" data-tab="collision">Collisions</button>
         </div>
@@ -108,6 +109,65 @@
             <div class="animation-container">
                 <div class="animation-controls">
                     <h3>Displacement-Time Graph Simulator</h3>
+                    <div class="scenario-bar">
+                        <div class="scenario-left">
+                            <label for="st-scenario"><strong>Scenario:</strong></label>
+                            <select id="st-scenario">
+                                <option value="city-bus">City Bus (pulling away)</option>
+                                <option value="scooter">Scooter Cruise</option>
+                                <option value="sprinter">Sprinter Burst</option>
+                                <option value="taxi-brake">Taxi Braking</option>
+                                <option value="ferry-dock">Ferry Docking</option>
+                            </select>
+                        </div>
+                        <div class="scenario-right">
+                            <button id="st-random" class="btn btn-secondary btn-sm"><i class="fas fa-dice"></i> Random Challenge</button>
+                            <button id="st-toggle-hints" class="btn btn-tertiary btn-sm"><i class="fas fa-lightbulb"></i> Hints</button>
+                        </div>
+                    </div>
+                    <div id="st-story" class="story-box">
+                        Pick a scenario, then scrub the cursor. Watch the <em>slope</em> change — that’s the speed at that instant.
+                    </div>
+
+                    
+<div class="missions-panel" id="st-missions">
+  <div class="missions-header">
+    <h4><i class="fas fa-flag-checkered"></i> Missions</h4>
+    <div class="missions-meta"><span id="st-missions-label">3 missions</span> • <span id="st-missions-progress">0/3</span></div>
+  </div>
+  <div id="st-mission-list" class="mission-list"></div>
+</div>
+
+<div class="question-panel" id="st-questions">
+  <div class="questions-header">
+    <h4><i class="fas fa-pen"></i> Try These (Exam Style)</h4>
+    <button id="st-show-answers" class="btn btn-tertiary btn-sm"><i class="fas fa-eye"></i> Show Answers</button>
+  </div>
+  <ol id="st-question-list" class="question-list"></ol>
+  <div id="st-answers" class="answer-box collapsed"></div>
+</div>
+
+<div class="micro-panel" id="st-micro">
+                        <div class="micro-row">
+                            <div class="micro-chip">Do this</div>
+                            <div class="micro-text">
+                                Place the cursor at time <strong>t</strong> and draw the <strong>tangent</strong>.
+                            </div>
+                        </div>
+                        <div class="micro-row">
+                            <div class="micro-chip">See this</div>
+                            <div class="micro-text">
+                                The <strong>slope</strong> of that tangent is <strong>v(t)</strong> (instantaneous velocity).
+                            </div>
+                        </div>
+                        <div class="micro-row">
+                            <div class="micro-chip">Try</div>
+                            <div class="micro-text">
+                                Find a time where the slope is <strong>0</strong>. What is the object doing right then?
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="control-group">
                         <label>Initial Position (m): <span id="s0-val">0</span></label>
                         <input type="range" id="s0-slider" min="-10" max="10" value="0" step="1">
@@ -127,6 +187,17 @@
                     <div class="equation-display">
                         <p>Equation: <span id="st-equation">s = 0 + 5t + 0t²</span></p>
                     </div>
+
+                    <div class="control-group">
+                        <label>Time cursor t: <span id="st-t-val">0.0</span> s</label>
+                        <input type="range" id="st-cursor" min="0" max="10" value="0" step="0.1">
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Tangent (slope) = instantaneous velocity</strong></p>
+                        <p>At t: s(t)= <span id="st-s-val">0.00</span> m &nbsp; | &nbsp; v(t)= <span id="st-vinst-val">0.00</span> m/s</p>
+                    </div>
+
                 </div>
                 <div class="animation-visual">
                     <div class="motion-track">
@@ -145,6 +216,65 @@
             <div class="animation-container">
                 <div class="animation-controls">
                     <h3>Velocity-Time Graph Simulator</h3>
+                    <div class="scenario-bar">
+                        <div class="scenario-left">
+                            <label for="vt-scenario"><strong>Scenario:</strong></label>
+                            <select id="vt-scenario">
+                                <option value="bike-hill">Bike Down a Hill</option>
+                                <option value="rollercoaster">Rollercoaster Dip</option>
+                                <option value="boat-throttle">Speedboat Throttle</option>
+                                <option value="airport-runway">Runway Takeoff</option>
+                                <option value="traffic-light">Traffic Light Start</option>
+                            </select>
+                        </div>
+                        <div class="scenario-right">
+                            <button id="vt-random" class="btn btn-secondary btn-sm"><i class="fas fa-dice"></i> Random Challenge</button>
+                            <button id="vt-toggle-hints" class="btn btn-tertiary btn-sm"><i class="fas fa-lightbulb"></i> Hints</button>
+                        </div>
+                    </div>
+                    <div id="vt-story" class="story-box">
+                        Scrub the cursor. Watch the <em>area</em> fill up — that total area is displacement.
+                    </div>
+
+                    
+<div class="missions-panel" id="vt-missions">
+  <div class="missions-header">
+    <h4><i class="fas fa-flag-checkered"></i> Missions</h4>
+    <div class="missions-meta"><span id="vt-missions-label">3 missions</span> • <span id="vt-missions-progress">0/3</span></div>
+  </div>
+  <div id="vt-mission-list" class="mission-list"></div>
+</div>
+
+<div class="question-panel" id="vt-questions">
+  <div class="questions-header">
+    <h4><i class="fas fa-pen"></i> Try These (Exam Style)</h4>
+    <button id="vt-show-answers" class="btn btn-tertiary btn-sm"><i class="fas fa-eye"></i> Show Answers</button>
+  </div>
+  <ol id="vt-question-list" class="question-list"></ol>
+  <div id="vt-answers" class="answer-box collapsed"></div>
+</div>
+
+<div class="micro-panel" id="vt-micro">
+                        <div class="micro-row">
+                            <div class="micro-chip">Slope</div>
+                            <div class="micro-text">
+                                The slope of the v–t graph at time <strong>t</strong> is <strong>a(t)</strong> (acceleration).
+                            </div>
+                        </div>
+                        <div class="micro-row">
+                            <div class="micro-chip">Area</div>
+                            <div class="micro-text">
+                                The shaded area from <strong>0 → t</strong> is <strong>displacement</strong> (how far you moved).
+                            </div>
+                        </div>
+                        <div class="micro-row">
+                            <div class="micro-chip">Try</div>
+                            <div class="micro-text">
+                                Can you make the shaded area go <strong>negative</strong>? What does that mean physically?
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="control-group">
                         <label>Initial Velocity (m/s): <span id="v0-val">0</span></label>
                         <input type="range" id="v0-slider" min="-10" max="10" value="0" step="1">
@@ -157,12 +287,24 @@
                         <label>Duration (s): <span id="dur-val">10</span></label>
                         <input type="range" id="dur-slider" min="5" max="20" value="10" step="1">
                     </div>
+                    
+                    <div class="control-group">
+                        <label>Time cursor t: <span id="vt-t-val">0.0</span> s</label>
+                        <input type="range" id="vt-cursor" min="0" max="10" value="0" step="0.1">
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Slope of v–t = acceleration</strong></p>
+                        <p>At t: v(t)= <span id="vt-v-val">0.00</span> m/s &nbsp; | &nbsp; a(t)= <span id="vt-a-val">0.00</span> m/s²</p>
+                        <p><strong>Area under v–t (0→t) = displacement</strong></p>
+                        <p>Shaded area: <span id="vt-area-val">0.00</span> m</p>
+                    </div>
                     <div class="button-group">
                         <button id="play-vt" class="btn btn-primary"><i class="fas fa-play"></i> Play</button>
                         <button id="reset-vt" class="btn btn-secondary"><i class="fas fa-redo"></i> Reset</button>
                     </div>
                     <div class="info-box">
-                        <p><strong>Area under graph = Displacement</strong></p>
+                        <p><strong>Animation running displacement</strong></p>
                         <p>Current displacement: <span id="vt-displacement">0</span> m</p>
                     </div>
                 </div>
@@ -172,7 +314,95 @@
             </div>
         </div>
 
-        <!-- Projectile Motion Animation -->
+        
+        <!-- Graph Relationships Lab -->
+        <div id="graphlab-tab" class="tab-content">
+            <div class="animation-container graphlab-container">
+                <div class="animation-controls">
+                    <h3>Graph Relationships Lab</h3>
+                    <p style="margin-bottom:1rem; color: var(--text-light);">
+                        Move the time cursor and watch how <strong>s–t → v–t → a–t</strong> connect:
+                        <em>slope</em> gives the next graph, and <em>area</em> gives the previous.
+                    </p>
+
+                    <div class="control-group">
+                        <label for="gl-model">Motion preset</label>
+                        <select id="gl-model">
+                            <option value="constant_v">Constant velocity</option>
+                            <option value="constant_a" selected>Constant acceleration</option>
+                            <option value="piecewise_a">Piecewise acceleration (0 → +a → −a)</option>
+                            <option value="sine_a">Sinusoidal acceleration</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Duration: <span id="gl-T-val">10</span> s</label>
+                        <input type="range" id="gl-T" min="4" max="20" value="10" step="1">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Initial displacement s₀: <span id="gl-s0-val">0</span> m</label>
+                        <input type="range" id="gl-s0" min="-20" max="20" value="0" step="1">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Initial velocity v₀: <span id="gl-v0-val">5</span> m/s</label>
+                        <input type="range" id="gl-v0" min="-20" max="20" value="5" step="1">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Base acceleration a: <span id="gl-a0-val">2</span> m/s²</label>
+                        <input type="range" id="gl-a0" min="-10" max="10" value="2" step="0.5">
+                    </div>
+
+                    <div class="control-group">
+                        <label>Time cursor t: <span id="gl-t-val">0.0</span> s</label>
+                        <input type="range" id="gl-cursor" min="0" max="10" value="0" step="0.1">
+                    </div>
+
+                    <div class="info-box" style="margin-top:1rem;">
+                        <strong>At the cursor</strong>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top:0.75rem;">
+                            <div>Displacement s(t): <strong><span id="gl-s">0.00</span> m</strong></div>
+                            <div>Velocity v(t): <strong><span id="gl-v">0.00</span> m/s</strong></div>
+                            <div>Acceleration a(t): <strong><span id="gl-a">0.00</span> m/s²</strong></div>
+                            <div>Area under v–t (0→t): <strong><span id="gl-area-v">0.00</span> m</strong></div>
+                            <div>Area under a–t (0→t): <strong><span id="gl-area-a">0.00</span> m/s</strong></div>
+                            <div>Slope of s–t at t: <strong><span id="gl-slope-s">0.00</span> m/s</strong></div>
+                        </div>
+                        <p style="margin-top:0.75rem; color: var(--text-light); font-size:0.95rem;">
+                            Tip: the <strong>slope</strong> of the displacement–time curve at a point is the instantaneous velocity.
+                            The <strong>area</strong> under the velocity–time curve from 0 to t is the displacement.
+                        </p>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="gl-play"><i class="fas fa-play"></i> Animate Cursor</button>
+                        <button class="btn btn-secondary" id="gl-reset"><i class="fas fa-undo"></i> Reset</button>
+                    </div>
+                </div>
+
+                <div class="animation-visual">
+                    <div class="graphlab-grid">
+                        <div class="graph-card">
+                            <h4>Displacement–Time (s–t)</h4>
+                            <div class="graph-wrap"><canvas id="glST"></canvas></div>
+                        </div>
+                        <div class="graph-card">
+                            <h4>Velocity–Time (v–t)</h4>
+                            <div class="graph-wrap"><canvas id="glVT"></canvas></div>
+                        </div>
+                        <div class="graph-card">
+                            <h4>Acceleration–Time (a–t)</h4>
+                            <div class="graph-wrap"><canvas id="glAT"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Projectile Motion Animation -->
         <div id="projectile-tab" class="tab-content">
             <div class="animation-container">
                 <div class="animation-controls">
